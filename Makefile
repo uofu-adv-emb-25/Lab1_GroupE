@@ -1,9 +1,13 @@
-hello.txt:
-	echo "hello world!" > hello.txt
+.PHONY: clean all
 
 CPP=arm-none-eabi-cpp
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
+LD=arm-none-eabi-ld
+SRC=main.c second.c
+OBJS=$(patsubst %.c,%.o,$(SRC))
+
+all: firmware.elf
 
 %.i: %.c
 	$(CPP) $< > $@
@@ -14,6 +18,11 @@ AS=arm-none-eabi-as
 %.o: %.s
 	$(AS) $< -o $@
 
-.PHONY: clean
+firmware.elf: $(OBJS)
+	$(LD) -o $@ $^
+
+hello.txt:
+	echo "hello world!" > hello.txt
+
 clean:
 	rm -f *.i *.s *.o hello.txt
