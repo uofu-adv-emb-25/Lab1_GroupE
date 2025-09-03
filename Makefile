@@ -25,4 +25,4 @@ hello.txt:
 	echo "hello world!" > hello.txt
 
 clean:
-	rm -f *.i *.s *.o hello.txt
+	rm -f *.i *.s *.o *.elf hello.txt
